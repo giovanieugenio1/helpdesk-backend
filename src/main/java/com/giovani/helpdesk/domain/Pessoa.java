@@ -1,6 +1,19 @@
 package com.giovani.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.giovani.helpdesk.enums.Perfil;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
@@ -8,14 +21,30 @@ import java.util.stream.Collectors;
 
 import static java.time.LocalDate.now;
 
-public abstract class Pessoa {
+@Table(name = "tb_pessoa")
+@Entity
+public abstract class Pessoa implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
     protected String nome;
+
+    @Size(min = 11, max = 11)
+    @Column(name = "CPF", unique = true)
     protected String cpf;
+
+    @Column(name = "Email")
     protected String email;
+
+    @Column(name = "Senha")
     protected String senha;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Perfis")
     protected Set<Integer> perfis;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = now();
 
     public Pessoa () {
