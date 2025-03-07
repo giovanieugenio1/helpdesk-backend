@@ -1,10 +1,5 @@
 package com.giovani.helpdesk.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
 public enum Perfil {
 
     ADMIN(0, "ROLE_ADMIN"),
@@ -14,7 +9,20 @@ public enum Perfil {
     private Integer codigo;
     private String descricao;
 
-    private static Perfil toEnum(Integer codigo) {
+    Perfil(Integer codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public static Perfil toEnum(Integer codigo) {
         if (codigo == null) {
             return null;
         }

@@ -1,10 +1,5 @@
 package com.giovani.helpdesk.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
-@Getter
 public enum Prioridade {
 
     BAIXA(0, "BAIXA"),
@@ -13,6 +8,19 @@ public enum Prioridade {
 
     private Integer codigo;
     private String descricao;
+
+    Prioridade(Integer codigo, String descricao) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+    }
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 
     private static Prioridade toEnum(Integer codigo) {
         if (codigo == null) {
