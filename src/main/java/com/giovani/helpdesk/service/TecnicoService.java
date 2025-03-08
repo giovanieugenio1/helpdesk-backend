@@ -5,6 +5,7 @@ import com.giovani.helpdesk.exceptions.ObjectNotFoundException;
 import com.giovani.helpdesk.repository.TecnicoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,9 @@ public class TecnicoService {
         return obj.orElseThrow(
                 ()-> new ObjectNotFoundException("Objeto não encontrado. ID: " + id)
         );
+    }
+
+    public List<Tecnico> getAll() {
+        return tecnicoRepository.findAll();
     }
 }
