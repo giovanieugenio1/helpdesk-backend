@@ -31,8 +31,8 @@ public abstract class Pessoa implements Serializable {
     protected Integer id;
     protected String nome;
 
-    @Size(min = 11, max = 11)
-    @Column(name = "CPF", unique = true)
+    //@Size(min = 11, max = 11)
+    //@Column(name = "CPF", unique = true)
     protected String cpf;
 
     @Column(name = "Email")
@@ -117,11 +117,11 @@ public abstract class Pessoa implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pessoa pessoa = (Pessoa) o;
-        return Objects.equals(id, pessoa.id) && Objects.equals(cpf, pessoa.cpf);
+        return Objects.equals(id, pessoa.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, cpf);
+        return Objects.hash(id);
     }
 }

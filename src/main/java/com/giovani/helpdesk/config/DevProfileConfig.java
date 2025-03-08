@@ -1,23 +1,29 @@
 package com.giovani.helpdesk.config;
 
 import com.giovani.helpdesk.service.DBService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-@Profile("test")
+@Profile("dev")
 @Configuration
-public class TestProfileConfig {
+public class DevProfileConfig {
+
+    @Value("${spring.jpa.hibernate.ddl-auto}")
+    private String value;
 
     private final DBService dbService;
 
-    public TestProfileConfig(DBService dbService) {
+    public DevProfileConfig(DBService dbService) {
         this.dbService = dbService;
     }
 
     @Bean
-    public DBService initDb() {
-        this.dbService.initDB();
-        return dbService;
+    public boolean initDb() {
+        if (value.equals("create")) {
+            this.dbService.initDB();
+        }
+        return false;
     }
 }

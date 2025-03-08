@@ -1,0 +1,23 @@
+services:
+
+  helpdesk-db:
+    container_name: helpdesk-db
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: helpdesk-db
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - helpdesk
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+
+networks:
+  helpdesk:
+    driver: bridge

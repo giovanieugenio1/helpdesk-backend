@@ -32,7 +32,7 @@ public class DBService {
         Tecnico tecnico = new Tecnico(
                 null,
                 "Giovani",
-                "43265437867",
+                "12324543443",
                 "giovani@gmail.com",
                 "1234"
         );
