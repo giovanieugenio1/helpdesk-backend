@@ -1,6 +1,7 @@
 package com.giovani.helpdesk.controller;
 
 import com.giovani.helpdesk.domain.Tecnico;
+import com.giovani.helpdesk.dtos.TecnicoDTO;
 import com.giovani.helpdesk.service.TecnicoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +20,8 @@ public class TecnicoController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Tecnico> getTecnicoDetails(@PathVariable("id") Integer id) {
+    public ResponseEntity<TecnicoDTO> getTecnicoDetails(@PathVariable("id") Integer id) {
         var tecnico = tecnicoService.getTecnicoDetails(id);
-        return ResponseEntity.ok().body(tecnico);
+        return ResponseEntity.ok().body(new TecnicoDTO(tecnico));
     }
 }
