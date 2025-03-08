@@ -1,5 +1,6 @@
 package com.giovani.helpdesk.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.giovani.helpdesk.enums.Perfil;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 public class Tecnico extends Pessoa {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
     private List<Chamado> chamados = new ArrayList<>();
 
