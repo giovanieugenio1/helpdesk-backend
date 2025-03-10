@@ -29,6 +29,9 @@ public class DBService {
 
     @PostConstruct
     public void initDB() {
+        if (tecnicoRepository.count() > 0 || clienteRepository.count() > 0) {
+            return;
+        }
         Tecnico tecnico1 = new Tecnico(null, "Giovani", "12324543443", "giovani@gmail.com", "1234");
         tecnico1.addPerfil(Perfil.ADMIN);
 

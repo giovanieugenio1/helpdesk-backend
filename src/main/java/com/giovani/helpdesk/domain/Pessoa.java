@@ -32,7 +32,7 @@ public abstract class Pessoa implements Serializable {
     protected String nome;
 
     //@Size(min = 11, max = 11)
-    //@Column(name = "CPF", unique = true)
+    @Column(name = "CPF", unique = true)
     protected String cpf;
 
     @Column(name = "Email")
