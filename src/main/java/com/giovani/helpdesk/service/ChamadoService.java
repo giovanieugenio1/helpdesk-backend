@@ -5,6 +5,7 @@ import com.giovani.helpdesk.exceptions.ObjectNotFoundException;
 import com.giovani.helpdesk.repository.ChamadoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,5 +22,9 @@ public class ChamadoService {
         return chamado.orElseThrow(
                 ()-> new ObjectNotFoundException("Objeto não encontrado! id: " + id)
         );
+    }
+
+    public List<Chamado> findAll() {
+        return chamadoRepository.findAll();
     }
 }
