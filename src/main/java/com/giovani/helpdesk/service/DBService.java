@@ -10,6 +10,7 @@ import com.giovani.helpdesk.repository.ChamadoRepository;
 import com.giovani.helpdesk.repository.ClienteRepository;
 import com.giovani.helpdesk.repository.TecnicoRepository;
 import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class DBService {
         tecnico1.addPerfil(Perfil.ADMIN);
 
         Cliente cliente1 = new Cliente(null, "John", "21543675455", "john@gmail.com", "4321");
-        cliente1.addPerfil(Perfil.CLIENTE);
+        //cliente1.addPerfil(Perfil.CLIENTE);
 
         Tecnico tecnico2 = new Tecnico(null, "Mariana", "32165498700", "mariana@gmail.com", "5678");
         tecnico2.addPerfil(Perfil.TECNICO);

@@ -1,8 +1,10 @@
 package com.giovani.helpdesk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.giovani.helpdesk.domain.Cliente;
 import com.giovani.helpdesk.domain.Tecnico;
 import com.giovani.helpdesk.enums.Perfil;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,7 +16,7 @@ import java.util.stream.Collectors;
 
 import static java.time.LocalDate.now;
 
-public class TecnicoDTO implements Serializable {
+public class ClienteDTO implements Serializable {
 
     protected Integer id;
 
@@ -34,12 +36,11 @@ public class TecnicoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = now();
 
-    public TecnicoDTO() {
+    public ClienteDTO() {
         super();
-        addPerfis(Perfil.CLIENTE);
     }
 
-    public TecnicoDTO(Tecnico obj) {
+    public ClienteDTO(Cliente obj) {
         super();
         this.id = obj.getId();
         this.nome = obj.getNome();
@@ -48,7 +49,6 @@ public class TecnicoDTO implements Serializable {
         this.senha = obj.getSenha();
         this.perfis = obj.getPerfis().stream().map(Perfil::getCodigo).collect(Collectors.toSet());
         this.dataCriacao = obj.getDataCriacao();
-        addPerfis(Perfil.CLIENTE);
     }
 
     public Integer getId() {

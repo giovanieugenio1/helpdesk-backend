@@ -64,7 +64,7 @@ public class TecnicoService {
         Tecnico tecnico = findById(id);
         validaCpfEEmail(dto);
         tecnico = new Tecnico(dto);
-        return tecnicoRepository.save(tecnico);
+        return tecnicoRepository.saveAndFlush(tecnico);
     }
 
     public void deleteTecnico(Integer id) {
