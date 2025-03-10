@@ -66,4 +66,13 @@ public class TecnicoService {
         tecnico = new Tecnico(dto);
         return tecnicoRepository.save(tecnico);
     }
+
+    public void deleteTecnico(Integer id) {
+        Tecnico tecnico = findById(id);
+        if (!tecnico.getChamados().isEmpty()) {
+            throw new DataIntegrityViolationException("Falha ao exluir tecnico! O tecnico possui chamaodos em aberto");
+        } else {
+            tecnicoRepository.deleteById(id);
+        }
+    }
 }
