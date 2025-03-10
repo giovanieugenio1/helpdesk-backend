@@ -1,6 +1,7 @@
 package com.giovani.helpdesk.service;
 
 import com.giovani.helpdesk.domain.Tecnico;
+import com.giovani.helpdesk.dtos.TecnicoDTO;
 import com.giovani.helpdesk.exceptions.ObjectNotFoundException;
 import com.giovani.helpdesk.repository.TecnicoRepository;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,11 @@ public class TecnicoService {
 
     public List<Tecnico> getAll() {
         return tecnicoRepository.findAll();
+    }
+
+    public Tecnico createTecnico(TecnicoDTO obj) {
+        obj.setId(null);
+        Tecnico tecnico = new Tecnico(obj);
+        return tecnicoRepository.save(tecnico);
     }
 }
