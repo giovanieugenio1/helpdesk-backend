@@ -3,6 +3,8 @@ package com.giovani.helpdesk.dtos;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.giovani.helpdesk.domain.Tecnico;
 import com.giovani.helpdesk.enums.Perfil;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,9 +17,17 @@ import static java.time.LocalDate.now;
 public class TecnicoDTO implements Serializable {
 
     protected Integer id;
+
+    @NotBlank(message = "O campo 'Nome' precisa ser preenchido")
     protected String nome;
+
+    @NotNull(message = "O campo 'Cpf' precisa ser preenchido")
     protected String cpf;
+
+    @NotNull(message = "O campo 'Email' precisa ser preenchido")
     protected String email;
+
+    @NotNull(message = "O campo 'Senha' precisa ser preenchido")
     protected String senha;
     protected Set<Integer> perfis = new HashSet<>();
 

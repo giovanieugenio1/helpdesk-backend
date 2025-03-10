@@ -2,16 +2,18 @@ package com.giovani.helpdesk.controller;
 
 import com.giovani.helpdesk.domain.Tecnico;
 import com.giovani.helpdesk.dtos.TecnicoDTO;
+import com.giovani.helpdesk.exceptions.handle.ResponseException;
 import com.giovani.helpdesk.service.TecnicoService;
-import org.springframework.http.HttpStatus;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Validated
 @RequestMapping("/tecnicos")
 @RestController
 public class TecnicoController {
@@ -36,7 +38,7 @@ public class TecnicoController {
     }
 
     @PostMapping
-    public ResponseEntity<TecnicoDTO> createTecnico(@RequestBody TecnicoDTO obj) {
+    public ResponseEntity<TecnicoDTO> createTecnico(@Valid @RequestBody TecnicoDTO obj) {
         Tecnico tecnico = tecnicoService.createTecnico(obj);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -44,5 +46,11 @@ public class TecnicoController {
                 .buildAndExpand(tecnico.getId())
                 .toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TecnicoDTO> updateTecnico(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO dto) {
+        Tecnico obj = tecnicoService.update(id, dto);
+        return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 }

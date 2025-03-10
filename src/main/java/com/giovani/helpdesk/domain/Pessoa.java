@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -31,7 +31,7 @@ public abstract class Pessoa implements Serializable {
     protected Integer id;
     protected String nome;
 
-    //@Size(min = 11, max = 11)
+    //@CPF
     @Column(name = "CPF", unique = true)
     protected String cpf;
 

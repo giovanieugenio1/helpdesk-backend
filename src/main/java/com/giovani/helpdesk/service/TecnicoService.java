@@ -7,6 +7,7 @@ import com.giovani.helpdesk.exceptions.DataIntegrityViolationException;
 import com.giovani.helpdesk.exceptions.ObjectNotFoundException;
 import com.giovani.helpdesk.repository.PessoaRepository;
 import com.giovani.helpdesk.repository.TecnicoRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,13 @@ public class TecnicoService {
     public TecnicoService(TecnicoRepository tecnicoRepository, PessoaRepository pessoaRepository) {
         this.tecnicoRepository = tecnicoRepository;
         this.pessoaRepository = pessoaRepository;
+    }
+
+    public Tecnico findById(Integer id) {
+        Optional<Tecnico> tecnico  = tecnicoRepository.findById(id);
+        return tecnico.orElseThrow(
+                ()-> new ObjectNotFoundException("Objeto não encontrado. ID: " + id)
+        );
     }
 
     public Tecnico getTecnicoDetails(Integer id) {
@@ -49,5 +57,13 @@ public class TecnicoService {
         if (pessoa.isPresent()) {
             throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
         }
+    }
+
+    public Tecnico update(Integer id, @Valid TecnicoDTO dto) {
+        dto.setId(id);
+        Tecnico tecnico = findById(id);
+        validaCpfEEmail(dto);
+        tecnico = new Tecnico(dto);
+        return tecnicoRepository.save(tecnico);
     }
 }
