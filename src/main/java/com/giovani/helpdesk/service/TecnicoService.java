@@ -8,6 +8,7 @@ import com.giovani.helpdesk.exceptions.ObjectNotFoundException;
 import com.giovani.helpdesk.repository.PessoaRepository;
 import com.giovani.helpdesk.repository.TecnicoRepository;
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +19,12 @@ public class TecnicoService {
 
     private final TecnicoRepository tecnicoRepository;
     private final PessoaRepository pessoaRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public TecnicoService(TecnicoRepository tecnicoRepository, PessoaRepository pessoaRepository) {
+    public TecnicoService(TecnicoRepository tecnicoRepository, PessoaRepository pessoaRepository, BCryptPasswordEncoder passwordEncoder) {
         this.tecnicoRepository = tecnicoRepository;
         this.pessoaRepository = pessoaRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Tecnico findById(Integer id) {
@@ -43,6 +46,8 @@ public class TecnicoService {
     }
 
     public Tecnico createTecnico(TecnicoDTO dto) {
+        dto.setId(null);
+        dto.setSenha(passwordEncoder.encode(dto.getSenha()));
         validaCpfEEmail(dto);
         Tecnico tecnico = new Tecnico(dto);
         return tecnicoRepository.save(tecnico);

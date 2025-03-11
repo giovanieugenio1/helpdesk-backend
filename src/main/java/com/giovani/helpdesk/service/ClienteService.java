@@ -8,6 +8,7 @@ import com.giovani.helpdesk.exceptions.ObjectNotFoundException;
 import com.giovani.helpdesk.repository.PessoaRepository;
 import com.giovani.helpdesk.repository.ClienteRepository;
 import jakarta.validation.Valid;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,10 +19,12 @@ public class ClienteService {
 
     private final ClienteRepository clienteRepository;
     private final PessoaRepository pessoaRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public ClienteService(ClienteRepository clienteRepository, PessoaRepository pessoaRepository) {
+    public ClienteService(ClienteRepository clienteRepository, PessoaRepository pessoaRepository, BCryptPasswordEncoder passwordEncoder) {
         this.clienteRepository = clienteRepository;
         this.pessoaRepository = pessoaRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Cliente findById(Integer id) {
@@ -44,6 +47,7 @@ public class ClienteService {
 
     public Cliente createCliente(ClienteDTO dto) {
         dto.setId(null);
+        dto.setSenha(passwordEncoder.encode(dto.getSenha()));
         validaCpfEEmail(dto);
         Cliente cliente = new Cliente(dto);
         return clienteRepository.save(cliente);
