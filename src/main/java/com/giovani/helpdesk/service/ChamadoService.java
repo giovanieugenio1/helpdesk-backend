@@ -11,6 +11,7 @@ import com.giovani.helpdesk.repository.ChamadoRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,9 @@ public class ChamadoService {
         if (dto.getId() != null) {
             chamado.setId(dto.getId());
         }
+        if (dto.getStatus().equals(2)) {
+            chamado.setDataFechamento(LocalDate.now());
+        }
         chamado.setTecnico(tecnico);
         chamado.setCliente(cliente);
         chamado.setPrioridade(Prioridade.toEnum(dto.getPrioridade()));
@@ -58,5 +62,11 @@ public class ChamadoService {
         chamado.setObservacoes(dto.getObservacoes());
 
         return chamado;
+    }
+
+    public Chamado updateChamado(Integer id, @Valid ChamadoDTO dto) {
+        dto.setId(id);
+        Chamado chamado = novoChamado(dto);
+        return chamadoRepository.save(chamado);
     }
 }
