@@ -22,7 +22,7 @@ public enum Prioridade {
         return descricao;
     }
 
-    private static Prioridade toEnum(Integer codigo) {
+    public static Prioridade toEnum(Integer codigo) {
         if (codigo == null) {
             return null;
         }

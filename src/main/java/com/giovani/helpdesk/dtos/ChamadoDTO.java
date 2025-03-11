@@ -2,6 +2,8 @@ package com.giovani.helpdesk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.giovani.helpdesk.domain.Chamado;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -16,14 +18,28 @@ public class ChamadoDTO implements Serializable {
     private LocalDate dataCriacao = now();
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFechamento = now();
+
+    @NotNull(message = "O campo 'Prioridade' precisa ser preenchido")
     private Integer prioridade;
+
+    @NotNull(message = "O campo 'Status' precisa ser preenchido")
     private Integer status;
+
+    @NotBlank(message = "O campo 'Titulo' precisa ser preenchido")
     private String titulo;
+
+    @NotBlank(message = "O campo 'Observações' precisa ser preenchido")
     private String observacoes;
+
+    @NotNull(message = "O campo 'Tecnico' precisa ser preenchido")
     private Integer tecnico;
+
+    @NotNull(message = "O campo 'Cliente' precisa ser preenchido")
     private Integer cliente;
     private String nomeCliente;
     private String nomeTecnico;
+
+    public ChamadoDTO(){}
 
     public ChamadoDTO(Chamado chamado) {
         this.id = chamado.getId();
