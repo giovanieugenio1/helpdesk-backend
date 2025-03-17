@@ -1,14 +1,13 @@
-package com.giovani.helpdesk.config;
+package com.giovani.helpdesk.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.giovani.helpdesk.dtos.CredenciaisDTO;
-import com.giovani.helpdesk.security.JWTUtil;
-import com.giovani.helpdesk.security.UserSecurity;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -20,12 +19,14 @@ import java.util.Date;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private AuthenticationManager authenticationManager;
-    private JWTUtil jwtUtil;
+    private final AuthenticationManager authenticationManager;
+    private final JWTUtil jwtUtil;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+        super(authenticationManager);
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        setFilterProcessesUrl("/login");
     }
 
     @Override
@@ -37,36 +38,37 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     credenciais.getSenha(),
                     new ArrayList<>()
             );
-            return authenticationManager.authenticate(authToken);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
+            Authentication authentication = authenticationManager.authenticate(authToken);
+            return authentication;
+        } catch (IOException e) {
+            throw new AuthenticationServiceException("Falha ao processar requisição de autenticação", e);
         }
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         String username = ((UserSecurity) authResult.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(username);
-        response.setHeader("Access-Control-Expose-Headers", "Authorization");
-        response.setHeader("Authorization", "Bearer " + token);
+        String token  = jwtUtil.generateToken(username);
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.addHeader("Authorization", "Bearer " + token);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"token\": \"Bearer " + token + "\"}");
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        response.setStatus(401);
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
-        response.getWriter().append(json());
+        response.getWriter().write(json());
     }
 
-    private CharSequence json() {
+    private String json() {
         long date = new Date().getTime();
         return "{"
                 + "\"timestamp\": " + date + ", "
                 + "\"status\": 401, "
                 + "\"error\": \"Não autorizado\", "
                 + "\"message\": \"Email ou senha inválidos\", "
-                + "\"path\": \"login\"" +
-                "}";
-
+                + "\"path\": \"/login\"}";
     }
 }

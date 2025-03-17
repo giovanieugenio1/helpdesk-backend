@@ -39,31 +39,31 @@ public class DBService {
         Tecnico tecnico1 = new Tecnico(null, "Giovani", "12324543443", "giovani@gmail.com", passwordEncoder.encode("1234"));
         tecnico1.addPerfil(Perfil.ADMIN);
 
-        Cliente cliente1 = new Cliente(null, "John", "21543675455", "john@gmail.com", passwordEncoder.encode("454534"));
-        //cliente1.addPerfil(Perfil.CLIENTE);
+        Cliente cliente1 = new Cliente(null, "John", "21543675455", "john@gmail.com",passwordEncoder.encode("1234"));
+        cliente1.addPerfil(Perfil.CLIENTE);
 
-        Tecnico tecnico2 = new Tecnico(null, "Mariana", "32165498700", "mariana@gmail.com", passwordEncoder.encode("76575665"));
+        Tecnico tecnico2 = new Tecnico(null, "Mariana", "32165498700", "mariana@gmail.com", passwordEncoder.encode("1234"));
         tecnico2.addPerfil(Perfil.TECNICO);
 
-        Cliente cliente2 = new Cliente(null, "Carlos", "14785236912", "carlos@gmail.com", passwordEncoder.encode("32457"));
+        Cliente cliente2 = new Cliente(null, "Carlos", "14785236912", "carlos@gmail.com", passwordEncoder.encode("1234"));
         cliente2.addPerfil(Perfil.CLIENTE);
 
-        Tecnico tecnico3 = new Tecnico(null, "Fernando", "96325874136", "fernando@gmail.com", passwordEncoder.encode("75358"));
+        Tecnico tecnico3 = new Tecnico(null, "Fernando", "96325874136", "fernando@gmail.com", passwordEncoder.encode("1234"));
         tecnico3.addPerfil(Perfil.ADMIN);
 
-        Cliente cliente3 = new Cliente(null, "Ana", "25874136985", "ana@gmail.com", passwordEncoder.encode("1324545"));
+        Cliente cliente3 = new Cliente(null, "Ana", "25874136985", "ana@gmail.com", passwordEncoder.encode("1234"));
         cliente3.addPerfil(Perfil.CLIENTE);
 
-        Tecnico tecnico4 = new Tecnico(null, "Ricardo", "75395185245", "ricardo@gmail.com", passwordEncoder.encode("76755"));
+        Tecnico tecnico4 = new Tecnico(null, "Ricardo", "75395185245", "ricardo@gmail.com", passwordEncoder.encode("1234"));
         tecnico4.addPerfil(Perfil.TECNICO);
 
-        Cliente cliente4 = new Cliente(null, "Beatriz", "95175325874", "beatriz@gmail.com", passwordEncoder.encode("9786y"));
+        Cliente cliente4 = new Cliente(null, "Beatriz", "95175325874", "beatriz@gmail.com", passwordEncoder.encode("1234"));
         cliente4.addPerfil(Perfil.CLIENTE);
 
-        Tecnico tecnico5 = new Tecnico(null, "Lucas", "85236974125", "lucas@gmail.com", passwordEncoder.encode("545fr"));
+        Tecnico tecnico5 = new Tecnico(null, "Lucas", "85236974125", "lucas@gmail.com", passwordEncoder.encode("1234"));
         tecnico5.addPerfil(Perfil.ADMIN);
 
-        Cliente cliente5 = new Cliente(null, "Paula", "75362418579", "paula@gmail.com", passwordEncoder.encode("654tfgre"));
+        Cliente cliente5 = new Cliente(null, "Paula", "75362418579", "paula@gmail.com", passwordEncoder.encode("1234"));
         cliente5.addPerfil(Perfil.CLIENTE);
 
         Chamado chamado1 = new Chamado(null, Prioridade.MEDIA, Status.ABERTO, "CH 1", "Primeiro chamado", tecnico1, cliente1);

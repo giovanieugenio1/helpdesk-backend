@@ -6,6 +6,7 @@ import com.giovani.helpdesk.exceptions.handle.ResponseException;
 import com.giovani.helpdesk.service.TecnicoService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,6 +38,7 @@ public class TecnicoController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TecnicoDTO> createTecnico(@Valid @RequestBody TecnicoDTO obj) {
         Tecnico tecnico = tecnicoService.createTecnico(obj);
@@ -48,12 +50,14 @@ public class TecnicoController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<TecnicoDTO> updateTecnico(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO dto) {
         Tecnico obj = tecnicoService.update(id, dto);
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         tecnicoService.deleteTecnico(id);
