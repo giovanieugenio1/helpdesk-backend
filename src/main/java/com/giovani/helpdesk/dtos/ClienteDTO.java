@@ -2,11 +2,8 @@ package com.giovani.helpdesk.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.giovani.helpdesk.domain.Cliente;
-import com.giovani.helpdesk.domain.Tecnico;
 import com.giovani.helpdesk.enums.Perfil;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;

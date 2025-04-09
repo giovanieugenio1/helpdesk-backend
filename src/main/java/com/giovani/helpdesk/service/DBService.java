@@ -10,7 +10,6 @@ import com.giovani.helpdesk.repository.ChamadoRepository;
 import com.giovani.helpdesk.repository.ClienteRepository;
 import com.giovani.helpdesk.repository.TecnicoRepository;
 import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

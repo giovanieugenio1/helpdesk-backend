@@ -3,7 +3,6 @@ package com.giovani.helpdesk.service;
 import com.giovani.helpdesk.domain.Pessoa;
 import com.giovani.helpdesk.repository.PessoaRepository;
 import com.giovani.helpdesk.security.UserSecurity;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -2,7 +2,6 @@ package com.giovani.helpdesk.controller;
 
 import com.giovani.helpdesk.domain.Tecnico;
 import com.giovani.helpdesk.dtos.TecnicoDTO;
-import com.giovani.helpdesk.exceptions.handle.ResponseException;
 import com.giovani.helpdesk.service.TecnicoService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
